@@ -1,0 +1,9 @@
+---
+applications:
+- name: rester
+  instances: 1
+  buildpack: staticfile_buildpack
+  routes:
+  - route: rester-socgerde.apps.eu1.mindsphere.io  
+  path: dist/rester/
+  memory: 128M
