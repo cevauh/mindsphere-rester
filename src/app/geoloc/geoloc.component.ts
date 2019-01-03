@@ -30,6 +30,11 @@ selectedLocation: Location;
   }
 
   getLocations(): void {
-    this.locations = this.locationService.getLocations();
+    
+    //async
+    this.locationService.getLocations().subscribe(locations => this.locations = locations);
+
+    //sync
+    //this.locations = this.locationService.getLocations();
   } 
 }
