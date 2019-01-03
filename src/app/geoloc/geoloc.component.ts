@@ -1,22 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+import { LocationService } from '../location.service';
 import { Location } from '../location';
+import { LOCATIONS } from '../mock-locations';
 
 @Component({
   selector: 'app-geoloc',
   templateUrl: './geoloc.component.html',
   styleUrls: ['./geoloc.component.css']
 })
+
 export class GeolocComponent implements OnInit {
-  location : Location = {
-    longitude: 12.4,
-    latitude: 66.4
-  };
+// locations = LOCATIONS;
+locations: Location[];
 
-  // longitude = '7.0';
-  // latitude = '50.0';
-  constructor() { }
+selectedLocation: Location;
 
-  ngOnInit() {
+  constructor(private locationService: LocationService) { 
   }
 
+  // constructor() { 
+  // }
+
+  ngOnInit() {
+    this.getLocations();
+  }
+
+  onSelect(loc: Location): void {
+    this.selectedLocation = loc;
+  }
+
+  getLocations(): void {
+    this.locations = this.locationService.getLocations();
+  } 
 }
