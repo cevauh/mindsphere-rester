@@ -22,14 +22,17 @@ selectedLocation: Location;
   // }
 
   ngOnInit() {
-    this.getLocations();
+    this.getLocationss();
   }
 
   onSelect(loc: Location): void {
     this.selectedLocation = loc;
+
+    //nur testweise
+    this.selectedLocation.latitude = this.locationService.addiere(this.selectedLocation.latitude,1);
   }
 
-  getLocations(): void {
+  getLocationss(): void {
     
     //async
     this.locationService.getLocations().subscribe(locations => this.locations = locations);

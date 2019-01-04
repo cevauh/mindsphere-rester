@@ -14,6 +14,12 @@ export class LocationService {
     return of(LOCATIONS);
   }
 
+  //only for simple test
+  addiere(a:number, b:number):number{
+    return (a+b);
+  }
+
+
   // getHeroes(): Observable<Hero[]> {
   //   return of(HEROES);
   // }
