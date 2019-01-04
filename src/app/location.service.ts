@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Location } from './location';
 import { LOCATIONS } from './mock-locations';
 import { Observable, of } from 'rxjs';
+import { MessageService } from './message.service';
 
 
 @Injectable({
@@ -11,6 +12,7 @@ import { Observable, of } from 'rxjs';
 export class LocationService {
   
   getLocations(): Observable <Location[]> {
+    this.messageService.add('LocationService: fetched locations')
     return of(LOCATIONS);
   }
 
@@ -24,5 +26,6 @@ export class LocationService {
   //   return of(HEROES);
   // }
 
-  constructor() { }
+  //constructor() { }
+  constructor(private messageService: MessageService) { }   //Dependency Injection
 }

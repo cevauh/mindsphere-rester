@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { AppComponent } from './app.component';
 import { GeolocComponent } from './geoloc/geoloc.component';
 import { LocationDetailComponent } from './location-detail/location-detail.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GeolocComponent,
-    LocationDetailComponent
+    LocationDetailComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
