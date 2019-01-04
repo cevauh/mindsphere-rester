@@ -17,6 +17,9 @@ h1 {
     color: #888;
     font-family: Cambria, Georgia;
   }
+  .comp{
+    color: rgb(211, 23, 23);
+  }
   /* everywhere else */
   * {
     font-family: Arial, Helvetica, sans-serif;

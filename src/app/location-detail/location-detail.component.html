@@ -1,13 +1,16 @@
-<p>
-  location-detail works!
+<p class=comp>
+  component: location-detail  
 </p>
 
 <div *ngIf="location">
   <h2>{{location.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{location.name}}</div>
+  <div><span>longitude: </span>{{location.longitude}}</div>
+  <div><span>latitude: </span>{{location.latitude}}</div>
+  <div><span>adress: </span>{{location.adress}}</div>
+  <div><span>weather: </span>{{location.weather}}</div>
   <div>
           <label>name:
-          <input [(ngModel)]="location.name" placeholder="name">
+            <input [(ngModel)]="location.name" placeholder="name">
           </label>
   </div>
 </div>

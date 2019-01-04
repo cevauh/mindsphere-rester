@@ -1,6 +1,7 @@
 export class Location {
     name: string;
     adress: string;
+    weather: string;
     longitude: number;
     latitude: number;
 
