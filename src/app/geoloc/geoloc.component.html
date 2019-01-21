@@ -1,18 +1,18 @@
-<p  class=comp>
-component: geoloc  
+<p class=comp>
+  component: geoloc
 </p>
 <h1 class=testme>Testme class</h1>
-<button class="clear"
-            (click)="messageService.add('test message')">add</button>
+<button class="clear" (click)="messageService.add('test message')">add1</button>
+<!-- use service directy -->
+<button class="clear" (click)="locationService.messageService.add('test message')">add2</button>      
+<!-- use service in service -->
+
+<h2>My Locations</h2>
 <h2>My Locations</h2>
 <ul class="locations">
-
-        <li *ngFor="let location of locations" 
-                [class.selected]="location === selectedLocation" 
-                (click)="onSelect(location)">
-        
-        <span class="badge">{{location.name}}</span>  {{location.latitude}}
-        </li>
+  <li *ngFor="let location of locations" [class.selected]="location === selectedLocation" (click)="onSelect(location)">
+    <span class="badge">{{location.name}}</span> {{location.latitude}}
+  </li>
 </ul>
 
 <app-location-detail [location]="selectedLocation"></app-location-detail>
