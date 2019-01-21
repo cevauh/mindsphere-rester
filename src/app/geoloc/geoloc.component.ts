@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationService } from '../location.service';
+import { MessageService } from '../message.service';
 import { Location } from '../location';
 import { LOCATIONS } from '../mock-locations';
 
@@ -15,7 +16,7 @@ locations: Location[];
 
 selectedLocation: Location;
 
-  constructor(private locationService: LocationService) { 
+  constructor(private locationService: LocationService, public messageService: MessageService) { 
   }
 
   // constructor() { 
