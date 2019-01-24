@@ -43,5 +43,8 @@ export class LocationDetailComponent implements OnInit {
     this.location.longitude = val;
   }
 
+  goBack(): void {
+    this.nglocation.back();
+  }
 
 }
