@@ -16,6 +16,13 @@ export class LocationService {
     return of(LOCATIONS);
   }
 
+  getLocation(id:number): Observable <Location>{
+    //todo: send the message __after__ fetching the hero
+    this.messageService.add(`Location Service: fetched hero id=${id}`);
+
+    return of(LOCATIONS.find(location => location.id ===id));
+  }
+
   //only for simple test
   addiere(a:number, b:number):number{
     return (a+b);
@@ -27,5 +34,5 @@ export class LocationService {
   // }
 
   //constructor() { }
-  constructor(private messageService: MessageService) { }   //Dependency Injection
+  constructor(public messageService: MessageService) { }   //Dependency Injection
 }

@@ -1,5 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location as NgLocation} from '@angular/common';
 import { Location } from '../location';
+
+
+// import { MyLocation } from '../location';
+import { LocationService }  from '../location.service';
+
 
 @Component({
   selector: 'app-location-detail',
@@ -8,11 +15,28 @@ import { Location } from '../location';
 })
 export class LocationDetailComponent implements OnInit {
 
-  @Input() location: Location;
+  location: Location;
 
-  constructor() { }
+  //wurde vorher von übergeordneter componente übergeben (geoloc.component)
+  // @Input() location: Location; 
+  //constructor() {console.log('constructor LocationDetailComponent '); }
+  constructor(
+    private route:            ActivatedRoute,
+    private locationService:  LocationService,
+    private nglocation:       NgLocation
+  ) {
+    console.log('constructor LocationDetailComponent ');
+  }
 
-  ngOnInit() {
+  ngOnInit():void {
+    this.getHero();
+  }
+
+  getHero():void{
+    const id = +this.route.snapshot.paramMap.get('id');
+    console.log('id ist: ' + id);
+    //arrow functions (Parameters are left of => return value is right)
+    this.locationService.getLocation(id).subscribe(location => this.location = location);
   }
 
 }

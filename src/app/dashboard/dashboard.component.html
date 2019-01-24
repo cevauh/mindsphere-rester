@@ -1,0 +1,8 @@
+<h3>Top Locations</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let location of locations" class="col-1-4" routerLink="/detail/{{location.id}}">
+    <div class="module hero">
+      <h4>{{location.name}}</h4>
+    </div>
+  </a>
+</div>

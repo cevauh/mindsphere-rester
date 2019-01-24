@@ -16,24 +16,28 @@ locations: Location[];
 
 selectedLocation: Location;
 
-  constructor(private locationService: LocationService, public messageService: MessageService) { 
+  constructor(public locationService: LocationService, public messageService: MessageService) { 
   }
 
   // constructor() { 
   // }
 
   ngOnInit() {
-    this.getLocationss();
+    this.getLocations();
   }
 
-  onSelect(loc: Location): void {
-    this.selectedLocation = loc;
+  // wurde benutzt, bevor die detail aus wahl über router ging. also via Code
+  // Previously, this, the parent Component set the HeroDetailComponent.hero property and the HeroDetailComponent displayed the hero.
+  // onSelect(loc: Location): void {
+  //   this.selectedLocation = loc;
 
-    //nur testweise
-    this.selectedLocation.latitude = this.locationService.addiere(this.selectedLocation.latitude,1);
-  }
+  //   //nur testweise
+  //   this.selectedLocation.latitude = this.locationService.addiere(this.selectedLocation.latitude,1);
+  // }
 
-  getLocationss(): void {
+  getLocations(): void {
+
+    console.log('GeolocComponent.getLocations')
     
     //async
     this.locationService.getLocations().subscribe(locations => this.locations = locations);

@@ -1,4 +1,8 @@
 <p class=comp>component: app</p>
 <h1>{{title}}</h1>
-<app-geoloc></app-geoloc>
+<nav>
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/locations">Locations</a>
+</nav>
+<router-outlet></router-outlet>
 <app-messages></app-messages>
