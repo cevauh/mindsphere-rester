@@ -39,4 +39,9 @@ export class LocationDetailComponent implements OnInit {
     this.locationService.getLocation(id).subscribe(location => this.location = location);
   }
 
+  setLongitude(val:number):void{
+    this.location.longitude = val;
+  }
+
+
 }

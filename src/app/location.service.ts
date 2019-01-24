@@ -25,8 +25,10 @@ export class LocationService {
 
   //only for simple test
   addiere(a:number, b:number):number{
+    console.log("LocationService.addiere "+a+" + "+b);
     return (a+b);
   }
+
 
 
   // getHeroes(): Observable<Hero[]> {

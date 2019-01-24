@@ -20,6 +20,9 @@ h2 {
     border-radius: 4px;
     cursor: pointer; 
     cursor: hand;
+    color: #888;
+    margin-bottom: 12px;
+    margin-right: 5px;
   }
   button:hover {
     background-color: #cfd8dc;
@@ -29,7 +32,4 @@ h2 {
     color: #aaa;
     cursor: auto;
   }
-  button.clear {
-    color: #888;
-    margin-bottom: 12px;
-  }
+  
