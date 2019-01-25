@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const locations = [
-      { name: 'Kautex', adress: 'Kautexstraße 54, 53229 Bonn', longitude: 0.0, latitude: 0.0, weather:'', id:1},
+      { name: 'Kautexx', adress: 'Kautexstraße 54, 53229 Bonn', longitude: 0.0, latitude: 0.0, weather:'', id:1},
       { name: 'Efferen', adress: 'Diepenbroichstr. 8, 50354 Hürth', longitude: 0.0, latitude: 0.0,weather:'', id:2},
       { name: 'Sauerland', adress: 'Zum Schee 12, 57413 Finnentrop', longitude: 0.0, latitude: 0.0,weather:'', id:3},
       { name: 'Dom', adress: 'Domkloster 4, 50667 Köln', longitude: 0.0, latitude: 0.0,weather:'', id:4},
@@ -24,7 +24,7 @@ export class InMemoryDataService implements InMemoryDbService {
   // the method below returns the initial number (11).
   // if the heroes array is not empty, the method below returns the highest
   // hero id + 1.
-  genId(heroes: Location[]): number {
-    return heroes.length > 0 ? Math.max(...heroes.map(hero => hero.id)) + 1 : 11;
+  genId(locations: Location[]): number {
+    return locations.length > 0 ? Math.max(...locations.map(location => location.id)) + 1 : 11;
   }
 }

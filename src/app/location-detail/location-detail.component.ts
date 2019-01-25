@@ -47,4 +47,8 @@ export class LocationDetailComponent implements OnInit {
     this.nglocation.back();
   }
 
+  save(): void {
+    this.locationService.updateLocation(this.location)
+    .subscribe(()=>this.goBack());
+  }
 }

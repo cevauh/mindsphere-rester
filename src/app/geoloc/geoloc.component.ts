@@ -45,4 +45,16 @@ selectedLocation: Location;
     //sync
     //this.locations = this.locationService.getLocations();
   } 
+
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.locationService.addLocation({ name } as Location)
+      .subscribe(location => {
+        this.locations.push(location);
+      });
+  }
+
+
 }
