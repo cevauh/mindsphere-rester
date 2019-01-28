@@ -14,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { LocationSearchComponent } from './location-search/location-search.component';
+import { HereDemoComponent } from './here-demo/here-demo.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LocationSearchComponent } from './location-search/location-search.compo
     LocationDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    LocationSearchComponent
+    LocationSearchComponent,
+    HereDemoComponent
   ],
   imports: [
     BrowserModule,
