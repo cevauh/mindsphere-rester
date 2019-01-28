@@ -100,12 +100,6 @@ export class LocationService {
     );
   }
 
-  // addLocation(location: Location): Observable<Location> {
-  //   return this.http.post<Location>(this.locationsUrl, location, httpOptions).pipe(
-  //     tap(_ => this.log(`added location w/ id=${location.id}`)),
-  //     catchError(this.handleError<Location>('addLocation'))
-  //   );
-  // }
 
   /** DELETE: delete the hero from the server */
   deleteLocation(location: Location | number): Observable<Location> {
