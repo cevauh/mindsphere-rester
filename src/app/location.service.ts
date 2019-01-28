@@ -114,6 +114,17 @@ export class LocationService {
     );
   }
 
+  /* GET heroes whose name contains search term */
+  searchLocations(term: string): Observable<Location[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http.get<Location[]>(`${this.locationsUrl}/?name=${term}`).pipe(
+      tap(_ => this.log(`found heroes matching "${term}"`)),
+      catchError(this.handleError<Location[]>('searchLocations', []))
+    );
+  }
 
   /** Log a LocationService message with the MessageService */
   private log(message: string) {
