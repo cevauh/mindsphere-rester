@@ -35,9 +35,9 @@ export class LocationService {
   // }
 
   /** GET heroes from the server with error handling */
-  private locationssUrl = 'api/locations';  // URL to web api
+  private locationsUrl = 'api/locations';  // URL to web api
   getLocations(): Observable<Location[]> {
-    return this.http.get<Location[]>(this.locationssUrl)
+    return this.http.get<Location[]>(this.locationsUrl)
       .pipe(
         tap(_ => this.log('fetched locations')),
         catchError(this.handleError('getLocations', []))
@@ -76,7 +76,7 @@ export class LocationService {
 
   /** GET hero by id. Will 404 if id not found */
   getLocation(id: number): Observable<Location> {
-    const url = `${this.locationssUrl}/${id}`;
+    const url = `${this.locationsUrl}/${id}`;
     return this.http.get<Location>(url).pipe(
       tap(_ => this.log(`fetched location id=${id}`)),
       catchError(this.handleError<Location>(`getLocation id=${id}`))
@@ -86,7 +86,7 @@ export class LocationService {
 
   /** PUT: update the hero on the server */
   updateLocation(location: Location): Observable<any> {
-    return this.http.put(this.locationssUrl, location, httpOptions).pipe(
+    return this.http.put(this.locationsUrl, location, httpOptions).pipe(
       tap(_ => this.log(`updated location id=${location.id}`)),
       catchError(this.handleError<any>('updateLocation'))
     );
@@ -94,9 +94,29 @@ export class LocationService {
 
   /** POST: add a new hero to the server */
   addLocation(location: Location): Observable<Location> {
-    return this.http.post<Location>(this.locationssUrl, location, httpOptions).pipe(
+    return this.http.post<Location>(this.locationsUrl, location, httpOptions).pipe(
       tap((location: Location) => this.log(`added location w/ id=${location.id}`)),
       catchError(this.handleError<Location>('addLocation'))
+    );
+  }
+
+  // addLocation(location: Location): Observable<Location> {
+  //   return this.http.post<Location>(this.locationsUrl, location, httpOptions).pipe(
+  //     tap(_ => this.log(`added location w/ id=${location.id}`)),
+  //     catchError(this.handleError<Location>('addLocation'))
+  //   );
+  // }
+
+  /** DELETE: delete the hero from the server */
+  deleteLocation(location: Location | number): Observable<Location> {
+    const id = typeof location === 'number' ? location : location.id;
+    //if typeof hero = number, than hero, else hero.id
+
+    const url = `${this.locationsUrl}/${id}`;
+
+    return this.http.delete<Location>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted location id=${id}`)),
+      catchError(this.handleError<Location>('deletLocation'))
     );
   }
 

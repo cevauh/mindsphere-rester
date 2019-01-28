@@ -12,7 +12,7 @@
 <h2>My Locations</h2>
 
 <div>
-  <label>Hero name:
+  <label>New Location name:
     <input #locationName />
   </label>
   <!-- (click) passes input value to add() and then clears the input -->
@@ -24,7 +24,11 @@
 <ul class="locations">
   <li *ngFor="let location of locations">
     <a routerLink="/detail/{{location.id}}">
-      <span class="badge">{{location.name}}</span> {{location.latitude}}
+      <span class="badge">{{location.name}}</span> 
+      <span class="geoinfo">{{location.latitude}}</span>
+      <span class="geoinfo">{{location.longitude}}</span>
     </a>
+    <button class="delete" title="delete hero"
+      (click)="delete(location)">x</button>
   </li>
 </ul>

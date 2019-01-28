@@ -56,5 +56,11 @@ selectedLocation: Location;
       });
   }
 
+  delete(location: Location): void {
+    this.locations = this.locations.filter(l => l !== location);
+    this.locationService.deleteLocation(location).subscribe();
+    // If you neglect to subscribe(), the service will not send the delete request to the server! 
+    // As a rule, an Observable does nothing until something subscribes!
+  }
 
 }

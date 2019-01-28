@@ -91,6 +91,11 @@
     border-radius: 4px 0 0 4px;
   }
 
+  span.geoinfo{
+    margin-right: .5em;
+  }
+
+
   button.clear {
     font-family: Arial;
     background-color: #eee;
@@ -99,4 +104,12 @@
     border-radius: 4px;
     cursor: pointer; 
     cursor: hand;
+  }
+
+  button.delete {
+    position: relative;
+    left: 194px;
+    top: -32px;
+    background-color: gray !important;
+    color: white;
   }

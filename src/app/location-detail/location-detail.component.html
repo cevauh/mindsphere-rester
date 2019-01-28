@@ -4,6 +4,7 @@
 
 <div *ngIf="location">
   <h2>{{location.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{location.id}}</div>
   <div><span>longitude: </span>{{location.longitude}}</div>
   <div><span>latitude: </span>{{location.latitude}}</div>
   <div><span>adress: </span>{{location.adress}}</div>
@@ -14,7 +15,7 @@
           </label>
   </div>
   <!-- <button class="clear" (click)="messageService.add('test message')">add</button> -->
-  <button class="clear" (click)="setLongitude(1)">add</button>
+  <button class="clear" (click)="setLongitude(1)">set long 1</button>
   <button (click)="goBack()">go back</button>
   <button (click)="save()">save</button>
 </div>
