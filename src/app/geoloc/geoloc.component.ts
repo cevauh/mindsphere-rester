@@ -44,6 +44,7 @@ selectedLocation: Location;
 
     //sync
     //this.locations = this.locationService.getLocations();
+    
   } 
 
 

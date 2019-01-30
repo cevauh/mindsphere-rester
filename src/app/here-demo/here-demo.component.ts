@@ -3,6 +3,8 @@ import { MessageService } from '../message.service';
 import { LocationService } from '../location.service';
 import { Observable, observable } from 'rxjs';
 import { of } from 'rxjs';
+import { interval } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,22 +64,28 @@ myObservable.subscribe(myObserver);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Subscriped Function
 // This function runs when subscribe() is called
 function sequenceSubscriber(observerrrr) {
   // synchronously deliver 1, 2, and 3, then complete
   observerrrr.next(9);
   observerrrr.next(8);
-  observerrrr.next(7);
-  observerrrr.complete();
+  setTimeout(() => {
+    observerrrr.next(7);
+    observerrrr.complete();     //after complete, things are done.
+  }, 5000);
+  observerrrr.next(6);
 
   // unsubscribe function doesn't need to do anything in this
   // because values are delivered synchronously
-  return {unsubscribe() {}};
+  return { unsubscribe() { } };
 }
 
 // Create a new Observable that will deliver the above sequence
 const sequence = new Observable(sequenceSubscriber);
 
+//Functions which subsripe direktly:
 // execute the Observable and print the result of each notification
 sequence.subscribe({
   next(num) { console.log(num); },
@@ -85,15 +93,37 @@ sequence.subscribe({
 });
 
 sequence.subscribe({
-  next(num) { console.log('2nd: '+ num); },
+  next(num) { console.log('2nd: ' + num); },
   complete() { console.log('2nd: Finished sequence'); }
 });
 
-// Logs:
-// 1
-// 2
-// 3
-// Finished sequence
+
+// Observer
+const myObserver2 = {
+  next: (x) => console.log('3rd: ' + x),
+  error: err => console.error('3rd: ' + err),
+  complete: () => console.log('3rd: Observer got a complete notification'),
+};
+
+
+//map
+const squareValues = map((val: object) => Number(val) * Number(val));
+const squaredNums = squareValues(sequence);
+squaredNums.subscribe(x => console.log('Map Operator :' + x));
+
+//pipe
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// Create an Observable that will publish a value on an interval
+//observable functions: Intervall
+const secondsCounter = interval(1000)
+const timeobserver = { next: (n => console.log(`It's been ${n} seconds since subscribing!`)) };
+
+
+
 
 
 
@@ -115,20 +145,27 @@ export class HereDemoComponent implements OnInit {
     this.messageService.add("get1 button pressed");
     // setTimeout(function(){ alert("Hello"); }, 3000);
     // setTimeout(()=>{alert("Hallo")},3000) 
-    myObservable.subscribe(myObserver);
+    //myObservable.subscribe(myObserver);
+    sequence.subscribe(myObserver2);
   }
 
   get2() {
     this.messageService.add("get2 button pressed");
+    // secondsCounter.subscribe(n => console.log(`It's been ${n} seconds since subscribing!`));
+    secondsCounter.subscribe(timeobserver);
+    
   }
 
+  get3() {
+    this.messageService.add("get3 button pressed");
+   }
+  get4() { }
 
   getLocations(): void {
-
   }
 
 
-  
+
 
 
 
