@@ -5,6 +5,7 @@ import { Observable, observable } from 'rxjs';
 import { of } from 'rxjs';
 import { interval } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { pipe } from 'rxjs';
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,13 +70,16 @@ myObservable.subscribe(myObserver);
 // This function runs when subscribe() is called
 function sequenceSubscriber(observerrrr) {
   // synchronously deliver 1, 2, and 3, then complete
-  observerrrr.next(9);
-  observerrrr.next(8);
+  observerrrr.next(1);
+  observerrrr.next(2);
+  observerrrr.next(3);
+  observerrrr.next(4);
   setTimeout(() => {
-    observerrrr.next(7);
+    observerrrr.next(5);
     observerrrr.complete();     //after complete, things are done.
   }, 5000);
   observerrrr.next(6);
+  observerrrr.next(7);
 
   // unsubscribe function doesn't need to do anything in this
   // because values are delivered synchronously
@@ -106,12 +110,51 @@ const myObserver2 = {
 };
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// Operators : map, filter, 
+// Operators take configuration options, and they return a function that takes a source observable. 
+// When executing this returned function, the operator observes the source observable’s emitted values, 
+// transforms them, and returns a new observable of those transformed values. 
+
+//sequence is the origninal observable, see above.
+
 //map
 const squareValues = map((val: object) => Number(val) * Number(val));
-const squaredNums = squareValues(sequence);
-squaredNums.subscribe(x => console.log('Map Operator :' + x));
+const squaredNums = squareValues(sequence);                             //generate new observable, from observable
+squaredNums.subscribe(x => console.log('Map Operator :' + x));          //subscript to new observable
 
-//pipe
+//filter
+const filterValues = filter((n: object) => Number(n) % 2 !== 0)
+const filteredValue = filterValues(sequence);
+filteredValue.subscribe(x => console.log('Filter Operator :' + x));
+
+
+//pipe Standalone 
+// You can use pipes to link operators together. Pipes let you combine multiple functions 
+// into a single function. The pipe() function takes as its arguments the functions you want to combine, 
+// and returns a new function that, when executed, runs the composed functions in sequence.
+const squareOddVals = pipe(
+  filter((n: object) => Number(n) % 2 !== 0),
+  map(n => Number(n) * Number(n))
+);
+
+const squareOdd = squareOddVals(sequence);  //generate new observable, from observable
+squareOdd.subscribe(x=> console.log('piped: '+x));//subscript to new observable
+
+////////////////////////////////////////////////////////////////////////
+//pipe() is also a funktion of an observable, so shorter:
+const squareOdd2 = of(1, 2, 3, 4, 5, 6, 7, 8)                     //generate new observable
+  .pipe(                                                          //use pipe as funktion
+    filter(n => n % 2 !== 0),
+    map(n => n * n)
+  );
+
+// Subscribe to get values
+squareOdd2.subscribe(x => console.log('short pipe: ' +x));
+
+
 
 
 
@@ -119,7 +162,7 @@ squaredNums.subscribe(x => console.log('Map Operator :' + x));
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Create an Observable that will publish a value on an interval
 //observable functions: Intervall
-const secondsCounter = interval(1000)
+const secondsCounter = interval(1000) //generate new observable
 const timeobserver = { next: (n => console.log(`It's been ${n} seconds since subscribing!`)) };
 
 
@@ -153,12 +196,12 @@ export class HereDemoComponent implements OnInit {
     this.messageService.add("get2 button pressed");
     // secondsCounter.subscribe(n => console.log(`It's been ${n} seconds since subscribing!`));
     secondsCounter.subscribe(timeobserver);
-    
+
   }
 
   get3() {
     this.messageService.add("get3 button pressed");
-   }
+  }
   get4() { }
 
   getLocations(): void {
