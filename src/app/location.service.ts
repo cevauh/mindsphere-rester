@@ -7,18 +7,16 @@ import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 
+
+
 @Injectable({
   providedIn: 'root'
 })
-
-
-
 
 export class LocationService {
 
@@ -107,6 +105,40 @@ private handleHereError<T>(operation = 'operation', result?: T) {
       catchError(this.handleError<Location>(`getLocation id=${id}`))
     );
   }
+
+  // Get koordinates from Adress
+  // http://geocoder.api.here.com/6.2/geocode.json?app_id=DnjaoL83Vl6cz2PzXZbj&app_code=cfEeqEWNLklJIHzJ_3B8Zg&searchtext=Diepenbroichstr.%2012,%2050354%20H%C3%BCrth
+  
+
+  private HereUrl = 'geocoder.api.here.com/6.2/geocode.json';  // URL to web api
+
+  stringTemplateDemo(strings, ...keys) {
+      return (function(...values) {
+      var dict = values[values.length - 1] || {};
+      var result = [strings[0]];
+      keys.forEach(function(key, i) {
+        var value = Number.isInteger(key) ? values[key] : dict[key];
+        result.push(value, strings[i + 1]);
+      });
+      return result.join('');
+    });
+  };
+
+  t1Closure = this.stringTemplateDemo`${0}${1}${0}!`;
+  t2Closure = this.stringTemplateDemo`${0} ${'foo'}!`;
+  
+  // wird von Componente aufgerufen
+  demoStringTemplate(strIn: string):void{    
+    console.log(this.t1Closure('Y', 'A'));  // "YAY!");  
+    console.log(this.t2Closure('Hello', {foo: 'World'}));  // "Hello World!"
+  }
+
+  
+  
+  
+
+
+
 
 
   /** PUT: update the hero on the server */

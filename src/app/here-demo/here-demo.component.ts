@@ -8,6 +8,9 @@ import { filter, map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 // Demo Observables Geolocation of Browser
@@ -145,14 +148,14 @@ squareOdd.subscribe(x=> console.log('piped: '+x));//subscript to new observable
 
 ////////////////////////////////////////////////////////////////////////
 //pipe() is also a funktion of an observable, so shorter:
-const squareOdd2 = of(1, 2, 3, 4, 5, 6, 7, 8)                     //generate new observable
-  .pipe(                                                          //use pipe as funktion
-    filter(n => n % 2 !== 0),
-    map(n => n * n)
-  );
+
+const squareOdd2 = sequence.pipe(                               //generate new observable with function
+  filter((n: object) => Number(n) % 2 !== 0),
+  map(n => Number(n) * Number(n))
+);
 
 // Subscribe to get values
-squareOdd2.subscribe(x => console.log('short pipe: ' +x));
+squareOdd2.subscribe(x => console.log('short piped: ' +x));
 
 
 
@@ -164,6 +167,13 @@ squareOdd2.subscribe(x => console.log('short pipe: ' +x));
 //observable functions: Intervall
 const secondsCounter = interval(1000) //generate new observable
 const timeobserver = { next: (n => console.log(`It's been ${n} seconds since subscribing!`)) };
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -201,11 +211,16 @@ export class HereDemoComponent implements OnInit {
 
   get3() {
     this.messageService.add("get3 button pressed");
+    this.locationService.demoStringTemplate("get3");
   }
-  get4() { }
 
-  getLocations(): void {
+
+  get4() { 
+
   }
+
+  // getLocations(): void {
+  // }
 
 
 
