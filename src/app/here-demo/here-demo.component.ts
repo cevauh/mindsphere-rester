@@ -144,7 +144,7 @@ const squareOddVals = pipe(
 );
 
 const squareOdd = squareOddVals(sequence);  //generate new observable, from observable
-squareOdd.subscribe(x=> console.log('piped: '+x));//subscript to new observable
+squareOdd.subscribe(x => console.log('piped: ' + x));//subscript to new observable
 
 ////////////////////////////////////////////////////////////////////////
 //pipe() is also a funktion of an observable, so shorter:
@@ -155,7 +155,7 @@ const squareOdd2 = sequence.pipe(                               //generate new o
 );
 
 // Subscribe to get values
-squareOdd2.subscribe(x => console.log('short piped: ' +x));
+squareOdd2.subscribe(x => console.log('short piped: ' + x));
 
 
 
@@ -215,14 +215,55 @@ export class HereDemoComponent implements OnInit {
   }
 
 
-  get4() { 
 
+  // http://codenugget.co/2015/03/05/declarative-vs-imperative-programming-web.html
+  get4() {
+    console.log('Imp: ' + this.sumOfSquares([1, 2, 3]))
+    console.log('Dec: ' + this.sumOfSquares2([1, 2, 3]))
   }
 
-  // getLocations(): void {
-  // }
+
+  //Imperative Style: Ansatz: WIE?
+  sumOfSquares(nums) {
+    var i, sum = 0, squares = [];
+    for (i = 0; i < nums.length; i++) {
+      squares.push(nums[i] * nums[i]);
+    }
+
+    for (i = 0; i < squares.length; i++) {
+      sum += squares[i];
+    }
+
+    return sum;
+  }
+ 
+  // Declarative Style: Funktionale Programmierung  Ansatz:  WAS? (und rekursiv bzw Arrays)
+  // https://www.learnrxjs.io/operators/transformation/map.html    
+  // https://www.learnrxjs.io/operators/transformation/reduce.html
+	// Hauptkontrollstruktur bildet die Rekursion, aus Effizienzgründen besonders die Endrekursion. 
 
 
+
+  sumOfSquares2(nums) {
+    return nums
+      .map(function (num) {
+        console.log('map: num= ' + num) //debug only -> called for each member
+        return num * num;
+      })                         //bildet jeweils das quadrat auf jedem einzelnen wert(map)
+      .reduce(function (start, num) {
+        console.log('reduce: start= ' + start + ' num= ' + num)  //debug only -> called for each member
+        return start + num;
+      }, 0)                       //Reduces the values from source observable to a single value that's emitted when the source completes.
+      ;
+  }
+
+  // first map map map, then reduce reduce reduce (3 members in observable)
+  // This really is the whole idea. Instead of thinking about for-loops and indices, we just care about two things:
+  
+  // 1)Take every number and calculate its square (“apply a mapping function, which happens to calculate the square of a number, 
+  //  to each element of the array”)
+  // 2)Calculate the sum of all those squares (“reduce the array through a function, which happens to calculate the sum of two numbers, 
+  //  into a single number”)
 
 
 
