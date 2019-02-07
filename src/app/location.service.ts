@@ -12,6 +12,33 @@ const httpOptions = {
 };
 
 
+//For Git Demo
+export interface RootObject {
+  login: string;
+  id: number;
+  node_id: string;
+  avatar_url: string;
+  gravatar_id: string;
+  url: string;
+  html_url: string;
+  followers_url: string;
+  following_url: string;
+  gists_url: string;
+  starred_url: string;
+  subscriptions_url: string;
+  organizations_url: string;
+  repos_url: string;
+  events_url: string;
+  received_events_url: string;
+  type: string;
+  site_admin: boolean;
+}
+
+
+interface GitResponeArray {
+  arrItems: [RootObject];
+}
+
 
 
 @Injectable({
@@ -74,19 +101,19 @@ export class LocationService {
  * @param operation - name of the operation that failed
  * @param result - optional value to return as the observable result
  */
-private handleHereError<T>(operation = 'operation', result?: T) {
-  return (error: any): Observable<T> => {
+  private handleHereError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
 
-    // TODO: send the error to remote logging infrastructure
-    console.error(error); // log to console instead
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
 
-    // TODO: better job of transforming error for user consumption
-    this.log(`${operation} failed: ${error.message}`);
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
 
-    // Let the app keep running by returning an empty result.
-    return of(result as T);
-  };
-}
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
 
 
 
@@ -108,15 +135,15 @@ private handleHereError<T>(operation = 'operation', result?: T) {
 
   // Get koordinates from Adress
   // http://geocoder.api.here.com/6.2/geocode.json?app_id=DnjaoL83Vl6cz2PzXZbj&app_code=cfEeqEWNLklJIHzJ_3B8Zg&searchtext=Diepenbroichstr.%2012,%2050354%20H%C3%BCrth
-  
+
 
   private HereUrl = 'geocoder.api.here.com/6.2/geocode.json';  // URL to web api
 
   stringTemplateDemo(strings, ...keys) {
-      return (function(...values) {
+    return (function (...values) {
       var dict = values[values.length - 1] || {};
       var result = [strings[0]];
-      keys.forEach(function(key, i) {
+      keys.forEach(function (key, i) {
         var value = Number.isInteger(key) ? values[key] : dict[key];
         result.push(value, strings[i + 1]);
       });
@@ -126,16 +153,16 @@ private handleHereError<T>(operation = 'operation', result?: T) {
 
   t1Closure = this.stringTemplateDemo`${0}${1}${0}!`;
   t2Closure = this.stringTemplateDemo`${0} ${'foo'}!`;
-  
+
   // wird von Componente aufgerufen
-  demoStringTemplate(strIn: string):void{    
+  demoStringTemplate(strIn: string): void {
     console.log(this.t1Closure('Y', 'A'));  // "YAY!");  
-    console.log(this.t2Closure('Hello', {foo: 'World'}));  // "Hello World!"
+    console.log(this.t2Closure('Hello', { foo: 'World' }));  // "Hello World!"
   }
 
-  
-  
-  
+
+
+
 
 
 
@@ -196,7 +223,34 @@ private handleHereError<T>(operation = 'operation', result?: T) {
 
 
 
+  /////////////////////////////////////////////////////////Git Hub demo
+  private githubUrl = 'https://api.github.com/users';
+
+
+
+  // http://json2ts.com/
+  // liefert observable vom typ object
+  getGithubUser() {
+    return this.http.get(this.githubUrl);
+  }
+
+
+  gitResponse: GitResponeArray;
+
+  showConfig() {
+    this.getGithubUser()
+      .subscribe((data: GitResponeArray) => {
+        this.gitResponse = data;                            
+        console.log('login: ' + this.gitResponse[0].login + ' follower: ' + this.gitResponse[1].followers_url );
+      }
+      )
+  }
+
+
+
   //constructor() { }
   constructor(private http: HttpClient, public messageService: MessageService) { }   //Dependency Injection
 
 }
+
+

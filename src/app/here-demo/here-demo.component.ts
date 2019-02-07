@@ -246,15 +246,15 @@ export class HereDemoComponent implements OnInit {
 
   sumOfSquares2(nums) {
     return nums
-      .map(function (num) {
+      .map(function (num) {             //bildet jeweils das quadrat auf jedem einzelnen wert(map)
         console.log('map: num= ' + num) //debug only -> called for each member
         return num * num;
-      })                         //bildet jeweils das quadrat auf jedem einzelnen wert(map)
-      .reduce(function (start, num) {
+      })                         
+      .reduce(function (start, num) {   //Reduces the values from source observable to a single value that's emitted when the source completes.
         console.log('reduce: start= ' + start + ' num= ' + num)  //debug only -> called for each member
         return start + num;
-      }, 0)                       //Reduces the values from source observable to a single value that's emitted when the source completes.
-      ;
+      }, 
+      0);                             
   }
 
   // first map map map, then reduce reduce reduce (3 members in observable)
@@ -265,6 +265,12 @@ export class HereDemoComponent implements OnInit {
   // 2)Calculate the sum of all those squares (“reduce the array through a function, which happens to calculate the sum of two numbers, 
   //  into a single number”)
 
+
+
+  get5() {
+    this.messageService.add("get5 button pressed");
+    this.locationService.showConfig();
+  }
 
 
 
